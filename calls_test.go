@@ -47,7 +47,7 @@ func TestCalls(t *testing.T) {
 		client, server := getServer(makeCallResponse)
 		defer server.Close()
 		u, _ := url.Parse("https://kev.inburke.com/zombo/zombocom.mp3")
-		call, err := client.Calls.MakeCall("+19253920364", "+19252717005", u)
+		call, err := client.Calls.MakeCall("+19253920364", "+19252717005", map[string]string{"Url": u.String()})
 		if err != nil {
 			t.Fatal(err)
 		}

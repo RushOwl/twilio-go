@@ -128,11 +128,13 @@ func (c *CallService) Create(ctx context.Context, data url.Values) (*Call, error
 // MakeCall starts a new Call from the given phone number to the given phone
 // number, dialing the url when the call connects. MakeCall is a wrapper around
 // Create; if you need more configuration, call that function directly.
-func (c *CallService) MakeCall(from string, to string, u *url.URL) (*Call, error) {
+func (c *CallService) MakeCall(from string, to string, params map[string]string) (*Call, error) {
 	data := url.Values{}
 	data.Set("From", from)
 	data.Set("To", to)
-	data.Set("Url", u.String())
+	for key, value := range params {
+		data.Set(key, value)
+	}
 	return c.Create(context.Background(), data)
 }
 
